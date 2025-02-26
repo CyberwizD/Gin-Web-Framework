@@ -1,5 +1,7 @@
 # Gin Web Framework
 
+Gin is a high-performance Golang web framework that is designed for building APIs and microservices. It has a minimalistic design and focuses on simplicity and ease of use. Gin comes with a number of features such as routing, middleware, and request binding that make it easy to build APIs. It also has good documentation and a large user community, which makes it a great choice for developers new to Go.
+
 ## Features
 * **Fast**
 Radix tree based routing, small memory foot print. No reflection. Predictable API performance.

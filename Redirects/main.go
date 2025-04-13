@@ -18,11 +18,19 @@ func v2Handler(c *gin.Context) {
 	})
 }
 
+func v3Handler(r *gin.Engine) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Redirect to v2 Handler
+		c.Request.URL.Path = "/api/v2"
+		r.HandleContext(c)
+	}
+}
+
 func main() {
 	r := gin.Default()
-
-	r.GET("/api/v1", v1Handler) // Redirect to v2Handler
-	r.GET("/api/v2", v2Handler) // Handle the request for v2
+	r.GET("/api/v1", v1Handler)    // Redirect to v2Handler
+	r.GET("/api/v2", v2Handler)    // Handle the request for v2
+	r.GET("/api/v3", v3Handler(r)) // Redirect to v2Handler
 
 	r.Run(":8080")
 }

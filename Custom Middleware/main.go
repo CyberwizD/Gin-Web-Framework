@@ -9,20 +9,26 @@ import (
 
 func Logger() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		// Start timer
 		t := time.Now()
 
 		// Set example variable
 		c.Set("example", "12345")
 
-		// before request
-
+		// Before request
+		log.Println("Before request")
+		log.Println("Request URL:", c.Request.URL.Path)
 		c.Next()
 
-		// after request
+		// After request
 		latency := time.Since(t)
+		log.Println("After request")
+		log.Println("Request Method:", c.Request.Method)
 		log.Print(latency)
 
-		// access the status we are sending
+		// Access the status from the context
+		// c.Writer.Status() will return the HTTP status code of the response sent to the client
+
 		status := c.Writer.Status()
 		log.Println(status)
 	}
@@ -36,7 +42,7 @@ func main() {
 	router.GET("/test", func(c *gin.Context) {
 		example := c.MustGet("example").(string)
 
-		// it would print: "12345"
+		// Prints "12345"
 		log.Println(example)
 	})
 
